@@ -52,6 +52,8 @@ public class MainActivity extends AppCompatActivity
 
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
         textSearch = findViewById(R.id.search);
+        //Default pertama kata inggris yang dicari
+        textSearch.setHint("Masukkan kata Inggris yang dicari");
         textSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -130,6 +132,7 @@ public class MainActivity extends AppCompatActivity
             String tes = sharedpreferences.getString("kamus",null);
             Log.d("prefs",tes);
             textSearch.setText("");
+            textSearch.setHint("Masukkan kata Inggris yang dicari");
         } else if (id == R.id.nav_indoeng) {
             SharedPreferences.Editor editor = sharedpreferences.edit();
             kamusChoose = "indoeng";
@@ -138,6 +141,7 @@ public class MainActivity extends AppCompatActivity
             String tes = sharedpreferences.getString("kamus",null);
             Log.d("prefs",tes);
             textSearch.setText("");
+            textSearch.setHint("Masukkan kata Indonesia yang dicari");
         } else if (id == R.id.nav_exit) {
             exitApps();
         }

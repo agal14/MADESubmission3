@@ -64,13 +64,13 @@ public class SplashScreenActivity extends AppCompatActivity {
                 Double progressDiff = (progressMaxInsert - progress) / kamusModelsEngIndo.size();
 
                 for (KamusModel model1 : kamusModelsEngIndo) {
-                    kamusHelper.insertEnglishIndo(model1);
+                    kamusHelper.insertEnglishIndoTransaction(model1);
                     progress += progressDiff;
                     publishProgress((int) progress);
                 }
 
                 for (KamusModel model2 : kamusModelsIndoEng) {
-                    kamusHelper.insertIndoEnglish(model2);
+                    kamusHelper.insertIndoEnglishTransaction(model2);
                     progress += progressDiff;
                     publishProgress((int) progress);
                 }
