@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ProgressBar;
 
 import com.dicoding.associate.madesubmission3.database.KamusHelper;
@@ -62,18 +63,25 @@ public class SplashScreenActivity extends AppCompatActivity {
                 publishProgress((int) progress);
                 Double progressMaxInsert = 80.0;
                 Double progressDiff = (progressMaxInsert - progress) / kamusModelsEngIndo.size();
+                kamusHelper.beginTransaction();
+                try{
+                    for (KamusModel model1 : kamusModelsEngIndo) {
+                        kamusHelper.insertEnglishIndoTransaction(model1);
+                        progress += progressDiff;
+                        publishProgress((int) progress);
+                    }
 
-                for (KamusModel model1 : kamusModelsEngIndo) {
-                    kamusHelper.insertEnglishIndoTransaction(model1);
-                    progress += progressDiff;
-                    publishProgress((int) progress);
-                }
+                    for (KamusModel model2 : kamusModelsIndoEng) {
+                        kamusHelper.insertIndoEnglishTransaction(model2);
+                        progress += progressDiff;
+                        publishProgress((int) progress);
+                    }
 
-                for (KamusModel model2 : kamusModelsIndoEng) {
-                    kamusHelper.insertIndoEnglishTransaction(model2);
-                    progress += progressDiff;
-                    publishProgress((int) progress);
+                    kamusHelper.setTransactionSuccess();
+                }catch(Exception e){
+                    Log.e(TAG, "doInBackground:Exception");
                 }
+                kamusHelper.endTransaction();
 
                 kamusHelper.close();
 
